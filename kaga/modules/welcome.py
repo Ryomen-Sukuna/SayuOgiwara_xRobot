@@ -22,7 +22,7 @@ from telegram.utils.helpers import (
     escape_markdown,
 )
 
-import kagakaga.modules.sql.welcome_sql as sql
+import kaga.modules.sql.welcome_sql as sql
 from kaga import (
     DEV_USERS,
     LOGGER,
