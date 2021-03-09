@@ -43,4 +43,12 @@ nekos.py
 fontTools
 coffeehouse
 geopy
-ffmpeg
+ffmpeg-python>=0.2.0
+pyrogram>=1.0.7
+youtube-search-python
+instantmusic
+PyLyrics
+asyncio
+python-socketio
+python-dotenv
+nodejs
