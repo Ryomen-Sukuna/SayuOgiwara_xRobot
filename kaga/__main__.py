@@ -34,6 +34,8 @@ from kaga import (
     LOGGER,
     BLACKLIST_CHATS,
     WHITELIST_CHATS,
+    pbot,
+    telethn,
 )
 
 # needed to dynamically load modules
@@ -814,8 +816,18 @@ def main():
             )
 
     updater.idle()
+    
+    if len(argv) not in (1, 3, 4):
+        telethn.disconnect()
+    else:
+        telethn.run_until_disconnected()
+
+    updater.idle()
 
 
 if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
+    telethn.start(bot_token=TOKEN)
+    pbot.start()
     main()
+    run()
