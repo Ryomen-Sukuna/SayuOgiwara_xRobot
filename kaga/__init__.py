@@ -8,8 +8,6 @@ import spamwatch
 import telegram.ext as tg
 from telethon import TelegramClient
 from dotenv import load_dotenv
-from pyrogram import Client, errors
-from telethon.sessions import StringSession
 
 StartTime = time.time()
 
@@ -105,20 +103,7 @@ else:
 # Everything Init with this
 updater = tg.Updater(TOKEN, workers=WORKERS)
 telethn = TelegramClient("KagaRobot", API_ID, API_HASH)
-pbot = Client("kaga", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 dispatcher = updater.dispatcher
-tbot = telethn
-
-if STRING_SESSION:
-    ubot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
-else:
-    sys.exit(1)
- 
-try:
-    ubot.start()
-except BaseException:
-    print("Network Error !")
-    sys.exit(1)
 
 # Declare user rank
 DEV_USERS = list(DEV_USERS)
