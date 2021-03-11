@@ -118,7 +118,7 @@ def info(update, context):
         return
 
     del_msg = msg.reply_text(
-        "Tunggu sebentar sementara saya mencuri beberapa data dari <b>Database FBI</b>...",
+        "Tunggu sebentar Saya mencari info pengguna dari <b>Database</b> Saya.",
         parse_mode=ParseMode.HTML,
     )
 
