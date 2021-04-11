@@ -39,7 +39,7 @@ def purge(update, context):
                 except BadRequest as err:
                     if err.message == "Message can't be deleted":
                         context.bot.send_message(chat.id, "Tidak dapat menghapus semua pesan. Pesannya mungkin terlalu lama, saya mungkin "
-                                                  "tidak memiliki hak hapus, atau ini mungkin bukan grup super.")
+                                                  "tidak memiliki hak hapus, atau ini mungkin bukan supergrup.")
 
                     elif err.message != "Message to delete not found":
                         LOGGER.exception("Kesalahan saat membersihkan pesan obrolan.")
@@ -49,7 +49,7 @@ def purge(update, context):
             except BadRequest as err:
                 if err.message == "Message can't be deleted":
                     context.bot.send_message(chat.id, "Tidak dapat menghapus semua pesan. Pesannya mungkin terlalu lama, saya mungkin "
-                                              "tidak memiliki hak hapus, atau ini mungkin bukan grup super.")
+                                              "tidak memiliki hak hapus, atau ini mungkin bukan supergrup.")
 
                 elif err.message != "Message to delete not found":
                     LOGGER.exception("Kesalahan saat membersihkan pesan obrolan.")
@@ -95,7 +95,7 @@ def del_message(update, context) -> str:
                    "\nMessage deleted.".format(html.escape(chat.title),
                                                mention_html(user.id, user.first_name))
     else:
-        update.effective_message.reply_text("Walah, ingin menghapus?")
+        update.effective_message.reply_text("Whadya mau dihapus?")
 
     return ""
 
@@ -103,10 +103,10 @@ def del_message(update, context) -> str:
 __help__ = """
 Menghapus pesan menjadi mudah dengan perintah ini. Pembersihan bot \
 pesan semua bersama-sama atau satu per satu.
-*Khusus Admin:*
+*Khusus admin:*
  × /del: Menghapus pesan yang Anda balas
  × /purge: Menghapus semua pesan antara ini dan pesan yang dibalas.
- × /purge <integer X>: Menghapus pesan yang dibalas, dan X pesan mengikutinya.
+ × /purge <integer X>: Menghapus pesan yang dibalas, dan X pesan yang mengikutinya.
 """
 
 __mod_name__ = "Purges"
