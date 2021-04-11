@@ -50,7 +50,7 @@ Hai, perkenalkan nama saya adalah *{dispatcher.bot.first_name}*.
 Saya adalah bot manajemen grup bertema Anime dengan banyak Fitur Khusus.
 Anda dapat menemukan daftar perintah yang tersedia dengan /help.
 
-Bergabunglah di [Group](https://t.me/ZeroBotSupport) Jika Anda ingin Melaporkan Masalah 🙂
+Bergabunglah di [Group](https://t.me/SakuraEmpireSupport) Jika Anda ingin Melaporkan Masalah 🙂
 
 Saya di sini untuk membuat pengelolaan grup Anda menyenangkan dan mudah!
 Saya memiliki banyak fitur praktis ☺️ seperti:
@@ -59,6 +59,7 @@ Saya memiliki banyak fitur praktis ☺️ seperti:
 • Pengendalian flood.
 • Sistem penyimpanan Note.
 • Sistem Warning.
+• Musik Player.
 
 *Dikelolah oleh ❤️:* [Hayaka Ryu](https://t.me/HayakaRyu)
 
@@ -90,7 +91,7 @@ buttons += [
 buttons += [
     [
         InlineKeyboardButton(
-            text="Support 🎗️", url="https://t.me/ZeroBotSupport"
+            text="Support 🎗️", url="https://t.me/SakuraEmpireSupport"
         ),
         InlineKeyboardButton(
             text="Channel 📢", url="https://t.me/HayakaRyuUpdates"
@@ -124,7 +125,9 @@ STAFF_HELP_STRINGS = """Halo pengguna staf. Senang bertemu Anda :)
 Ini semua perintah staf. Pengguna di atas memiliki akses perintah untuk semua perintah di bawah ini.
 
 *OWNER*
-× /broadcast: Kirim pesan siaran ke semua obrolan yang saya ikuti saat ini.
+× /broadcastall: Kirim pesan siaran ke semua obrolan dan pengguna yang saya ikuti saat ini.
+× /broadcastusers: Kirim pesan siaran ke pengguna.
+× /broadcastgrups: Kirim pesan siara ke obrolan.
 × /staffids: Dapatkan semua staf yang Anda miliki.
 × /ip: Mengirimkan alamat IP bot ke ssh jika perlu (khusus PM).
 
