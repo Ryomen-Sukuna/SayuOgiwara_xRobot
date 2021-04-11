@@ -1,101 +1,84 @@
-import html, time
+import html
 from typing import Optional, List
 
 from telegram import Message, Chat, Update, Bot, User
 from telegram.error import BadRequest
-from telegram.ext import Filters
+from telegram.ext import CommandHandler, Filters
+from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 from kaga import dispatcher, LOGGER
-from kaga.modules.disable import DisableAbleCommandHandler
 from kaga.modules.helper_funcs.chat_status import user_admin, can_delete
-from kaga.modules.helper_funcs.admin_rights import user_can_delete
 from kaga.modules.log_channel import loggable
 
 
 @user_admin
 @loggable
-def purge(update, context):
-    args = context.args
+def purge(update, context) -> str:
     msg = update.effective_message  # type: Optional[Message]
     if msg.reply_to_message:
         user = update.effective_user  # type: Optional[User]
         chat = update.effective_chat  # type: Optional[Chat]
-        if user_can_delete(chat, user, context.bot.id) == False:
-           msg.reply_text("Anda tidak memiliki cukup hak untuk menghapus pesan!")
-           return ""
-        if can_delete(chat, context.bot.id):
+        if can_delete(chat, bot.id):
             message_id = msg.reply_to_message.message_id
-            delete_to = msg.message_id - 1
             if args and args[0].isdigit():
-                new_del = message_id + int(args[0])
-                # No point deleting messages which haven't been written yet.
-                if new_del < delete_to:
-                    delete_to = new_del
+                if int(args[0]) < int(1):
+                     return
 
+                delete_to = message_id + int(args[0])
+            else:
+                delete_to = msg.message_id - 1
             for m_id in range(delete_to, message_id - 1, -1):  # Reverse iteration over message ids
                 try:
-                    context.bot.deleteMessage(chat.id, m_id)
+                    bot.deleteMessage(chat.id, m_id)
                 except BadRequest as err:
                     if err.message == "Message can't be deleted":
-                        context.bot.send_message(chat.id, "Tidak dapat menghapus semua pesan. Pesannya mungkin terlalu lama, saya mungkin "
-                                                  "tidak memiliki hak hapus, atau ini mungkin bukan grup super.")
+                        bot.send_message(chat.id, "Cannot delete all messages. The messages may be too old, I might "
+                                                  "not have delete rights, or this might not be a supergroup.")
 
                     elif err.message != "Message to delete not found":
-                        LOGGER.exception("Kesalahan saat membersihkan pesan obrolan.")
+                        LOGGER.exception("Error while purging chat messages.")
 
             try:
                 msg.delete()
             except BadRequest as err:
                 if err.message == "Message can't be deleted":
-                    context.bot.send_message(chat.id, "Tidak dapat menghapus semua pesan. Pesannya mungkin terlalu lama, saya mungkin "
-                                              "tidak memiliki hak hapus, atau ini mungkin bukan grup super.")
+                    bot.send_message(chat.id, "Cannot delete all messages. The messages may be too old, I might "
+                                              "not have delete rights, or this might not be a supergroup.")
 
                 elif err.message != "Message to delete not found":
-                    LOGGER.exception("Kesalahan saat membersihkan pesan obrolan.")
+                    LOGGER.exception("Error while purging chat messages.")
 
-            del_msg = context.bot.send_message(chat.id, "Pembersihan selesai.")
-            time.sleep(2)
-
-            try:
-                del_msg.delete()
-
-            except BadRequest:
-                pass
-
+            bot.send_message(chat.id, "Purge complete.")
             return "<b>{}:</b>" \
                    "\n#PURGE" \
-                   "\n<b>Admin:</b> {}" \
+                   "\n<b>• Admin:</b> {}" \
                    "\nPurged <code>{}</code> messages.".format(html.escape(chat.title),
                                                                mention_html(user.id, user.first_name),
                                                                delete_to - message_id)
 
     else:
-        msg.reply_text("Balas pesan untuk memilih dari mana mulai membersihkan.")
+        msg.reply_text("Reply to a message to select where to start purging from.")
 
     return ""
 
-    
+
 @user_admin
 @loggable
 def del_message(update, context) -> str:
     if update.effective_message.reply_to_message:
         user = update.effective_user  # type: Optional[User]
         chat = update.effective_chat  # type: Optional[Chat]
-        message = update.effective_message  # type: Optional[Message]
-        if user_can_delete(chat, user, context.bot.id) == False:
-           message.reply_text("Anda tidak memiliki cukup hak untuk menghapus pesan!")
-           return ""
-        if can_delete(chat, context.bot.id):
+        if can_delete(chat, bot.id):
             update.effective_message.reply_to_message.delete()
             update.effective_message.delete()
             return "<b>{}:</b>" \
                    "\n#DEL" \
-                   "\n<b>Admin:</b> {}" \
+                   "\n<b>• Admin:</b> {}" \
                    "\nMessage deleted.".format(html.escape(chat.title),
                                                mention_html(user.id, user.first_name))
     else:
-        update.effective_message.reply_text("Walah, ingin menghapus?")
+        update.effective_message.reply_text("Whatdaw ingin dihapus??")
 
     return ""
 
@@ -103,17 +86,16 @@ def del_message(update, context) -> str:
 __help__ = """
 Menghapus pesan menjadi mudah dengan perintah ini. Pembersihan bot \
 pesan semua bersama-sama atau satu per satu.
-
-*Khusus Admin:*
- × /del: Menghapus pesan yang Anda balas
- × /purge: Menghapus semua pesan antara ini dan pesan yang dibalas.
- × /purge <integer X>: Menghapus pesan yang dibalas, dan X pesan mengikutinya.
+*Khusus admin:*
+ - /del: menghapus pesan yang Anda balas
+ - /purge: menghapus semua pesan antara ini dan pesan yang dibalas.
+ - /purge <integer X>: menghapus pesan yang dibalas, dan X pesan yang mengikutinya.
 """
 
 __mod_name__ = "Purges"
 
-DELETE_HANDLER = DisableAbleCommandHandler("del", del_message, filters=Filters.chat_type.groups, run_async=True)
-PURGE_HANDLER = DisableAbleCommandHandler("purge", purge, filters=Filters.chat_type.groups, pass_args=True,  run_async=True)
+DELETE_HANDLER = CommandHandler("del", del_message, filters=Filters.group)
+PURGE_HANDLER = CommandHandler("purge", purge, filters=Filters.group, pass_args=True)
 
 dispatcher.add_handler(DELETE_HANDLER)
 dispatcher.add_handler(PURGE_HANDLER)
