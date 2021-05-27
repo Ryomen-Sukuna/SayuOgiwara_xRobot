@@ -1,14 +1,14 @@
 {
-      "name": "KagaRobot",
+      "name": "SayuOgiwaraBot",
       "description": "An Anime themed Telegram group management bot.",
       "keywords": [
          "telegram",
          "anime",
          "group",
          "manager",
-         "Kaga"
+         "Sayu"
       ],   
-   "repository": "https://github.com/HayakaRyu/KagaRobot",
+   "repository": "https://github.com/HANSZDAYS/KagaRobot",
    "addons": [
       {
          "options": {
