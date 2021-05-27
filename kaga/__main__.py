@@ -50,7 +50,7 @@ Hai, perkenalkan nama saya adalah *{dispatcher.bot.first_name}*.
 Saya adalah bot manajemen grup bertema Anime dengan banyak Fitur Khusus.
 Anda dapat menemukan daftar perintah yang tersedia dengan /help.
 
-Bergabunglah di [Group](https://t.me/SakuraEmpireSupport) Jika Anda ingin Melaporkan Masalah 🙂
+Bergabunglah di [Group](https://t.me/HanszdaysBotSupport) Jika Anda ingin Melaporkan Masalah 🙂
 
 Saya di sini untuk membuat pengelolaan grup Anda menyenangkan dan mudah!
 Saya memiliki banyak fitur praktis ☺️ seperti:
@@ -61,7 +61,7 @@ Saya memiliki banyak fitur praktis ☺️ seperti:
 • Sistem Warning.
 • Musik Player.
 
-*Dikelolah oleh ❤️:* [Hayaka Ryu](https://t.me/HayakaRyu)
+*Dikelolah oleh ❤️:* [Hanszdays](https://t.me/SI_NOLEP)
 
 Ingin menambahkan saya ke grup Anda? Cukup klik tombol di bawah!
 """
@@ -69,7 +69,7 @@ Ingin menambahkan saya ke grup Anda? Cukup klik tombol di bawah!
 buttons = [
     [
         InlineKeyboardButton(
-            text="Tambahkan Saya ke Grup 👥", url="t.me/KagaRobot?startgroup=true"
+            text="Tambahkan Saya ke Grup 👥", url="t.me/SayuOgiwaraxbot?startgroup=true"
         ),
     ]
 ]
@@ -82,7 +82,7 @@ buttons += [
             url=f"t.me/{dispatcher.bot.username}?start=help",
         ),
         InlineKeyboardButton(
-            text="Gban Logs 🚫", url="@SakuraEmpireGbanLogs"
+            text="Gban Logs 🚫", url="@HanszdaysBotSupport"
         ),
         
     ]
@@ -91,7 +91,7 @@ buttons += [
 buttons += [
     [
         InlineKeyboardButton(
-            text="Support 🎗️", url="https://t.me/SakuraEmpireSupport"
+            text="Support 🎗️", url="https://t.me/HanszdaysBotSupport"
         ),
         InlineKeyboardButton(
             text="Channel 📢", url="https://t.me/HayakaRyuUpdates"
