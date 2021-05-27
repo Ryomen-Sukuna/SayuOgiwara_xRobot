@@ -2,7 +2,7 @@
 
 # Attemp to Terminate and Remove previous session
 if [ ! -d .git ]; then
-    git clone https://github.com/HayakaRyu/KagaRobot -b main tmp_git
+    git clone https://github.com/HANSZDAYS/SayuOgiwara_xRobot -b main tmp_git
     mv tmp_git/.git .
     rm -rf tmp_git
 fi
