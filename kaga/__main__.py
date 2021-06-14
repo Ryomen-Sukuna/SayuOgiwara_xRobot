@@ -45,7 +45,7 @@ from kaga.modules.helper_funcs.misc import paginate_modules
 from kaga.modules.helper_funcs.alternate import typing_action
 
 
-PM_START_TEXT = f"""
+PM_START_TEXT = """
 Hai, perkenalkan nama saya adalah *{dispatcher.bot.first_name}*.
 Saya adalah bot manajemen grup bertema Anime dengan banyak Fitur Khusus.
 Anda dapat menemukan daftar perintah yang tersedia dengan /help.
@@ -102,7 +102,7 @@ buttons += [
 buttons += [
     [
         InlineKeyboardButton(
-            text="Source 💻", url="https://github.com/HayakaRyu/Kaga"
+            text="Source 💻", url="https://github.com/HANSZDAYS/SayuOgiwara_xRobot"
         ),
     ]
 ]
